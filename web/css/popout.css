@@ -1,0 +1,96 @@
+/* Two-screen layouts set by web/js/popout.js as a class on <html>, and the two-column draggable units set by js/layout.js.
+   pv-graphic (the pop-out): only the map, its legend and layer label, "Reset view" and "Dock", filling the window.
+   pv-main (the window it came from): the whole page, with the map block removed from its layout; the map settings drive the pop-out.
+   pv-map (?view=map): sentence boxes + 3-D map with its controls, full height.  pv-explain (?view=explain): the
+   "Which words made it say so?" panel and all cards.  No class: the normal page.  To change the split, edit this file only. */
+
+.popout-btn { margin-left: auto; }
+.popout-msg { order: 10; flex-basis: 100%; text-align: right; font-size: 13px; color: var(--text-2); }
+.popout-msg a { color: var(--text); word-break: break-all; }
+
+/* screen 1: the map */
+html.pv-map body { display: flex; flex-direction: column; height: 100vh; }
+html.pv-map .why, html.pv-map .cards, html.pv-map footer { display: none; }
+html.pv-map .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+html.pv-map .viewer { min-height: 420px; }
+
+/* screen 2: the explanations */
+html.pv-explain .composer, html.pv-explain .viewer { display: none; }
+html.pv-explain #sim-strip { max-width: 560px; }   /* a fixed-viewBox SVG: keep it the size it has on the full page */
+
+
+/* page units (js/layout.js): .stage holds two columns (.col) of units (.blk: the map, the explanation and five cards); every unit can sit in either column at any position */
+.col { display: flex; flex-direction: column; gap: 14px; min-width: 0; min-height: 80px; }
+.blk { display: flex; flex-direction: column; min-width: 0; position: relative; flex: 0 0 auto; }
+.blk-head { display: flex; align-items: center; gap: 4px; margin: 0 0 6px; padding: 3px 4px 3px 8px; border-radius: 7px; font-size: 13px; color: var(--text-2); }
+.blk-title { margin-right: auto; font-weight: 600; }
+.blk-head.in-card { position: absolute; top: 12px; right: 12px; margin: 0; padding: 0; z-index: 3; }   /* a card: the header is its own title (h2, the drag handle); only the "-" sits in its top-right corner */
+.card:has(> .blk-head.in-card), .why { position: relative; }
+.blk-head.in-card ~ h2.blk-handle { padding-right: 40px; }
+/* the map and the Explanation: the unit title is an h2 inside the panel, styled exactly like a card title (style.css .card h2: 15px / 650, margin 0 0 6px) */
+.why > h2.blk-utitle { margin: 0 0 6px; }
+.viewer > h2.blk-utitle.blk-handle { position: absolute; top: 16px; left: 18px; z-index: 3; margin: 0; font-size: 15px; font-weight: 650; }
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk[data-blk="map"] .overlay.tl, html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk[data-blk="map"] .overlay.tr { top: 48px; }   /* below the title row, clear of the "-" */
+.blk-move { display: inline-grid; place-items: center; min-width: 22px; height: 20px; padding: 0 4px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--text-2); font-size: 12px; line-height: 1; user-select: none; }
+.blk-min { font-size: 16px; }
+.blk-head.blk-handle, h2.blk-handle { cursor: grab; }
+.blk-head.blk-handle:active, h2.blk-handle:active { cursor: grabbing; }
+.blk-head.blk-handle:hover, h2.blk-handle:hover { background: var(--surface-2); }
+h2.blk-handle { border-radius: 7px; }
+.blk-handle[aria-disabled="true"], .blk-handle[aria-disabled="true"]:active { cursor: default; }
+.blk-move:hover { color: var(--text); border-color: var(--muted); background: var(--surface-2); cursor: pointer; }
+.blk-handle:focus-visible, .blk-title:focus-visible, .blk-move:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.blk-move:disabled { opacity: .35; cursor: default; }
+.blk-1col { display: none; }
+.blk[data-blk="map"] .blk-1col, .blk[data-blk="map"] .blk-1col { display: none !important; }   /* the map is the fixed first row: no up / down */   /* up / down: single-column widths only */
+.blk.dragging { opacity: .45; }
+.blk.drop-t::before, .blk.drop-b::after { content: ""; position: absolute; left: 0; right: 0; z-index: 6; height: 4px; background: var(--focus); border-radius: 3px; pointer-events: none; }
+.blk.drop-t::before { top: -9px; } .blk.drop-b::after { bottom: -9px; }
+.col.drop-into { outline: 2px dashed var(--focus); outline-offset: -2px; border-radius: var(--radius); }
+.blk > .viewer { flex: 0 0 auto; }
+
+/* folded: only the header bar stays (not in the map-only / pop-out / ?view=map layouts, which show the map whatever was folded) */
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed:not(.cards) > * > :not(.blk-head):not(.blk-utitle) { display: none !important; }
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed .card > :not(h2):not(.blk-head) { display: none; }
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed .card { padding-bottom: 14px; }
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed .card > h2 { margin-bottom: 0; }
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed .why > h2, html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed .viewer > h2 { margin-bottom: 0; }
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed .why { padding-bottom: 14px; }
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed .viewer { height: auto; min-height: 0; padding: 16px 18px 14px; }
+html:not(.pv-graphic):not(.pv-map):not(.map-only) .blk.collapsed .viewer > h2.blk-utitle { position: static; }
+
+/* narrow: one column; the columns dissolve and the units follow the flattened order (--o set by layout.js); no drag, no column buttons */
+@media (max-width: 1100px) {
+  .col { display: contents; }
+  .blk { order: var(--o, 0); }
+  .blk-1col { display: inline-grid; border-color: var(--border); background: var(--surface); }
+  .blk-head.blk-handle, h2.blk-handle { cursor: default; }
+  .blk-head.blk-handle:hover, h2.blk-handle:hover { background: none; }
+  .blk-head.in-card ~ h2.blk-handle { padding-right: 90px; }
+}
+@media (max-width: 640px) { .blk-head.in-card ~ h2.blk-handle { padding-right: 90px; } }
+
+/* the other layouts do not use the columns: the units dissolve (display: contents), the headers hide and only the map unit stays in the map layouts */
+html.pv-map .col, html.pv-graphic .col, html.map-only .col, html.pv-map .blk[data-blk="map"], html.pv-graphic .blk[data-blk="map"], html.map-only .blk[data-blk="map"] { display: contents; }
+html.pv-map .blk:not([data-blk="map"]), html.pv-graphic .blk:not([data-blk="map"]), html.map-only .blk:not([data-blk="map"]) { display: none; }
+html.pv-map .blk-head, html.pv-graphic .blk-head, html.map-only .blk-head, html.pv-map .blk-utitle, html.pv-graphic .blk-utitle, html.map-only .blk-utitle, html.pv-map #btn-reset-layout, html.pv-graphic #btn-reset-layout { display: none; }
+.popout-note { margin-left: auto; font-size: 12px; white-space: nowrap; color: var(--text-2); }
+.popout-note[hidden] { display: none; }
+.popout-note + .popout-btn { margin-left: 8px; }
+
+/* the pop-out (?view=graphic): the whole map block (graphic, legend, color / projection / word points / layer controls, Play, Dock) fills the window */
+html.pv-graphic, html.pv-graphic body { height: 100%; margin: 0; overflow: hidden; }
+html.pv-graphic .top, html.pv-graphic .composer, html.pv-graphic .why, html.pv-graphic .cards, html.pv-graphic footer { display: none; }
+html.pv-graphic .stage { position: fixed; inset: 0; display: block; padding: 0; }
+html.pv-graphic .viewer { position: absolute; inset: 0; min-height: 0; border: 0; border-radius: 0; }
+html.pv-graphic #btn-maponly { display: none; }
+html.pv-graphic .overlay.tr { top: 12px; right: 12px; left: auto; }
+html.pv-graphic .overlay.bl { left: 12px; bottom: 12px; right: auto; max-width: 46%; }
+html.pv-graphic .overlay.br { left: auto; right: 12px; bottom: 12px; }
+html.pv-graphic .popout-msg { position: fixed; z-index: 5; left: 12px; right: 12px; top: 56px; text-align: left; }
+
+/* the window the block came from (?view=main, and the old ?view=explain): the map unit is gone from the layout; layout.js re-flows the other units over the two columns (equal width here) so both stay filled */
+html.pv-main .blk[data-blk="map"], html.pv-explain .blk[data-blk="map"] { display: none; }
+html.pv-main .stage, html.pv-explain .stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 1100px) { html.pv-main .stage, html.pv-explain .stage { grid-template-columns: minmax(0, 1fr); } }
+html.pv-main #sim-strip { max-width: 560px; }   /* a fixed-viewBox SVG: keep it the size it has when the block is narrower */

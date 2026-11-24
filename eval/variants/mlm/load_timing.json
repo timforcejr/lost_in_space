@@ -1,0 +1,1484 @@
+{
+ "generated": "2026-11-22T17:41:09.540Z",
+ "chrome": null,
+ "note": "times in seconds from navigation start (cold/warm/reload) or from the moment the picker changed (switch); first_result_chip_s = first \"Ready ... s in your browser\" chip (model loaded and first pair computed); chain_done_s = until the deletion test, gradients and word-order test are done",
+ "profiles": {
+  "unthrottled": {
+   "steps": [
+    {
+     "step": "A_cold",
+     "profile": "unthrottled",
+     "expected_model": "a",
+     "model_loaded": "a",
+     "title": "Lost in Space",
+     "settled": true,
+     "chain_done_s": 5.5,
+     "model_ready_first_pair_starts_s": 2.18,
+     "first_result_chip_s": 2.36,
+     "bytes_until_first_result": {
+      "total_mb": 146.27,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0.085,
+        "requests": 19,
+        "from_cache": 0
+       },
+       "vendor(js+wasm)": {
+        "mb": 22.264,
+        "requests": 6,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 2.308,
+        "requests": 8,
+        "from_cache": 0
+       },
+       "tokenizer_and_config(shared)": {
+        "mb": 3.536,
+        "requests": 3,
+        "from_cache": 0
+       },
+       "mmini_weights_graph": {
+        "mb": 22.063,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mmini_weights_data": {
+        "mb": 96.015,
+        "requests": 1,
+        "from_cache": 0
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 189.174,
+      "requests": 40,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0.085,
+        "requests": 19,
+        "from_cache": 0
+       },
+       "vendor(js+wasm)": {
+        "mb": 22.264,
+        "requests": 6,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 2.308,
+        "requests": 8,
+        "from_cache": 0
+       },
+       "tokenizer_and_config(shared)": {
+        "mb": 3.536,
+        "requests": 3,
+        "from_cache": 0
+       },
+       "mmini_weights_graph": {
+        "mb": 22.063,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mmini_weights_data": {
+        "mb": 96.015,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mgrad": {
+        "mb": 42.904,
+        "requests": 2,
+        "from_cache": 0
+       }
+      }
+     },
+     "renderer_rss_mb": 1153,
+     "renderer_pids": [
+      4140400,
+      4140348,
+      4140352,
+      4140338
+     ],
+     "js_heap_used_mb": 381,
+     "js_heap_total_mb": 442,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 189.2,
+     "server_onnx_data": [
+      {
+       "status": 200,
+       "mb": 96.01
+      }
+     ],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 96.015,
+      "mmini_weights_graph": 22.063,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "A_warm_reload",
+     "profile": "unthrottled",
+     "expected_model": "a",
+     "model_loaded": "a",
+     "title": "Lost in Space",
+     "settled": true,
+     "chain_done_s": 4.2,
+     "model_ready_first_pair_starts_s": 0.97,
+     "first_result_chip_s": 1.11,
+     "bytes_until_first_result": {
+      "total_mb": 0,
+      "requests": 33,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 8,
+        "from_cache": 8
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 0,
+      "requests": 33,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 8,
+        "from_cache": 8
+       }
+      }
+     },
+     "renderer_rss_mb": 1218,
+     "renderer_pids": [
+      4140400,
+      4140348,
+      4140352,
+      4140338
+     ],
+     "js_heap_used_mb": 460,
+     "js_heap_total_mb": 519,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 0,
+     "server_onnx_data": [],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "switch_A_to_B (B cold, A cached)",
+     "profile": "unthrottled",
+     "expected_model": "b",
+     "model_loaded": "b",
+     "title": "Lost in Space · masked-word model",
+     "settled": true,
+     "chain_done_s": 4.3,
+     "model_ready_first_pair_starts_s": 1.47,
+     "first_result_chip_s": 1.59,
+     "bytes_until_first_result": {
+      "total_mb": 120.313,
+      "requests": 41,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0.001,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 22.041,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 96.015,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 2.256,
+        "requests": 7,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 163.193,
+      "requests": 43,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0.001,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 22.041,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 96.015,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 2.256,
+        "requests": 7,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       },
+       "mgrad_mlm": {
+        "mb": 42.879,
+        "requests": 2,
+        "from_cache": 0
+       }
+      }
+     },
+     "renderer_rss_mb": 1720,
+     "renderer_pids": [
+      4140400,
+      4140348,
+      4140352,
+      4140338
+     ],
+     "js_heap_used_mb": 200,
+     "js_heap_total_mb": 299,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 163.2,
+     "server_onnx_data": [
+      {
+       "status": 200,
+       "mb": 96.01
+      }
+     ],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 96.015,
+      "mlm_weights_graph": 22.041
+     }
+    },
+    {
+     "step": "B_warm_reload",
+     "profile": "unthrottled",
+     "expected_model": "b",
+     "model_loaded": "b",
+     "title": "Lost in Space · masked-word model",
+     "settled": true,
+     "chain_done_s": 3.7,
+     "model_ready_first_pair_starts_s": 0.85,
+     "first_result_chip_s": 0.96,
+     "bytes_until_first_result": {
+      "total_mb": 0.002,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 0.001,
+        "requests": 7,
+        "from_cache": 5
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 0.002,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 0.001,
+        "requests": 7,
+        "from_cache": 5
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "renderer_rss_mb": 1735,
+     "renderer_pids": [
+      4140400,
+      4140348,
+      4140352,
+      4140338
+     ],
+     "js_heap_used_mb": 518,
+     "js_heap_total_mb": 581,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 0,
+     "server_onnx_data": [],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "B_warm_navigate",
+     "profile": "unthrottled",
+     "expected_model": "b",
+     "model_loaded": "b",
+     "title": "Lost in Space · masked-word model",
+     "settled": true,
+     "chain_done_s": 3.5,
+     "model_ready_first_pair_starts_s": 0.85,
+     "first_result_chip_s": 0.98,
+     "bytes_until_first_result": {
+      "total_mb": 0.002,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 19
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 0.001,
+        "requests": 7,
+        "from_cache": 5
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 0.002,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 19
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 0.001,
+        "requests": 7,
+        "from_cache": 5
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "renderer_rss_mb": 1864,
+     "renderer_pids": [
+      4140400,
+      4140348,
+      4140352,
+      4140338
+     ],
+     "js_heap_used_mb": 462,
+     "js_heap_total_mb": 526,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 0,
+     "server_onnx_data": [],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "switch_B_to_A (A warm)",
+     "profile": "unthrottled",
+     "expected_model": "a",
+     "model_loaded": "a",
+     "title": "Lost in Space",
+     "settled": true,
+     "chain_done_s": 4,
+     "model_ready_first_pair_starts_s": 1.06,
+     "first_result_chip_s": 1.18,
+     "bytes_until_first_result": {
+      "total_mb": 0,
+      "requests": 33,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 8,
+        "from_cache": 8
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 0,
+      "requests": 33,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 8,
+        "from_cache": 8
+       }
+      }
+     },
+     "renderer_rss_mb": 1252,
+     "renderer_pids": [
+      4140400,
+      4140348,
+      4140352,
+      4140338
+     ],
+     "js_heap_used_mb": 459,
+     "js_heap_total_mb": 522,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 0,
+     "server_onnx_data": [],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "B_cold_direct (fresh profile, ?model=b)",
+     "profile": "unthrottled",
+     "expected_model": "b",
+     "model_loaded": "b",
+     "title": "Lost in Space · masked-word model",
+     "settled": true,
+     "chain_done_s": 4.9,
+     "model_ready_first_pair_starts_s": 1.98,
+     "first_result_chip_s": 2.15,
+     "bytes_until_first_result": {
+      "total_mb": 146.239,
+      "requests": 43,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0.085,
+        "requests": 19,
+        "from_cache": 0
+       },
+       "vendor(js+wasm)": {
+        "mb": 22.264,
+        "requests": 6,
+        "from_cache": 0
+       },
+       "mlm_config": {
+        "mb": 0.001,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 22.041,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 96.015,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 2.256,
+        "requests": 7,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 0.042,
+        "requests": 3,
+        "from_cache": 0
+       },
+       "tokenizer_and_config(shared)": {
+        "mb": 3.535,
+        "requests": 2,
+        "from_cache": 0
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 189.118,
+      "requests": 45,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0.085,
+        "requests": 19,
+        "from_cache": 0
+       },
+       "vendor(js+wasm)": {
+        "mb": 22.264,
+        "requests": 6,
+        "from_cache": 0
+       },
+       "mlm_config": {
+        "mb": 0.001,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 22.041,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 96.015,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 2.256,
+        "requests": 7,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 0.042,
+        "requests": 3,
+        "from_cache": 0
+       },
+       "tokenizer_and_config(shared)": {
+        "mb": 3.535,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mgrad_mlm": {
+        "mb": 42.879,
+        "requests": 2,
+        "from_cache": 0
+       }
+      }
+     },
+     "renderer_rss_mb": 1144,
+     "renderer_pids": [
+      4141387,
+      4141349,
+      4141352,
+      4141340
+     ],
+     "js_heap_used_mb": 373,
+     "js_heap_total_mb": 427,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 189.1,
+     "server_onnx_data": [
+      {
+       "status": 200,
+       "mb": 96.01
+      }
+     ],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 96.015,
+      "mlm_weights_graph": 22.041
+     }
+    }
+   ]
+  },
+  "mbit20": {
+   "steps": [
+    {
+     "step": "A_cold",
+     "profile": "mbit20",
+     "expected_model": "a",
+     "model_loaded": "a",
+     "title": "Lost in Space",
+     "settled": true,
+     "chain_done_s": 81.8,
+     "model_ready_first_pair_starts_s": 61.14,
+     "first_result_chip_s": 61.32,
+     "bytes_until_first_result": {
+      "total_mb": 146.27,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0.085,
+        "requests": 19,
+        "from_cache": 0
+       },
+       "vendor(js+wasm)": {
+        "mb": 22.264,
+        "requests": 6,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 2.308,
+        "requests": 8,
+        "from_cache": 0
+       },
+       "tokenizer_and_config(shared)": {
+        "mb": 3.536,
+        "requests": 3,
+        "from_cache": 0
+       },
+       "mmini_weights_graph": {
+        "mb": 22.063,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mmini_weights_data": {
+        "mb": 96.015,
+        "requests": 1,
+        "from_cache": 0
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 189.174,
+      "requests": 40,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0.085,
+        "requests": 19,
+        "from_cache": 0
+       },
+       "vendor(js+wasm)": {
+        "mb": 22.264,
+        "requests": 6,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 2.308,
+        "requests": 8,
+        "from_cache": 0
+       },
+       "tokenizer_and_config(shared)": {
+        "mb": 3.536,
+        "requests": 3,
+        "from_cache": 0
+       },
+       "mmini_weights_graph": {
+        "mb": 22.063,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mmini_weights_data": {
+        "mb": 96.015,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mgrad": {
+        "mb": 42.904,
+        "requests": 2,
+        "from_cache": 0
+       }
+      }
+     },
+     "renderer_rss_mb": 1145,
+     "renderer_pids": [
+      4141747,
+      4141713,
+      4141717,
+      4141704
+     ],
+     "js_heap_used_mb": 180,
+     "js_heap_total_mb": 202,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 189.2,
+     "server_onnx_data": [
+      {
+       "status": 200,
+       "mb": 96.01
+      }
+     ],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 96.015,
+      "mmini_weights_graph": 22.063,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "A_warm_reload",
+     "profile": "mbit20",
+     "expected_model": "a",
+     "model_loaded": "a",
+     "title": "Lost in Space",
+     "settled": true,
+     "chain_done_s": 4,
+     "model_ready_first_pair_starts_s": 1.03,
+     "first_result_chip_s": 1.18,
+     "bytes_until_first_result": {
+      "total_mb": 0,
+      "requests": 33,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 8,
+        "from_cache": 8
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 0,
+      "requests": 33,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 8,
+        "from_cache": 8
+       }
+      }
+     },
+     "renderer_rss_mb": 1401,
+     "renderer_pids": [
+      4141747,
+      4141713,
+      4141717,
+      4141704
+     ],
+     "js_heap_used_mb": 310,
+     "js_heap_total_mb": 395,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 0,
+     "server_onnx_data": [],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "switch_A_to_B (B cold, A cached)",
+     "profile": "mbit20",
+     "expected_model": "b",
+     "model_loaded": "b",
+     "title": "Lost in Space · masked-word model",
+     "settled": true,
+     "chain_done_s": 70.6,
+     "model_ready_first_pair_starts_s": 50.06,
+     "first_result_chip_s": 50.19,
+     "bytes_until_first_result": {
+      "total_mb": 120.313,
+      "requests": 41,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0.001,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 22.041,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 96.015,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 2.256,
+        "requests": 7,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 163.193,
+      "requests": 43,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0.001,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 22.041,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 96.015,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 2.256,
+        "requests": 7,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       },
+       "mgrad_mlm": {
+        "mb": 42.879,
+        "requests": 2,
+        "from_cache": 0
+       }
+      }
+     },
+     "renderer_rss_mb": 1198,
+     "renderer_pids": [
+      4141747,
+      4141713,
+      4141717,
+      4141704
+     ],
+     "js_heap_used_mb": 193,
+     "js_heap_total_mb": 258,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 163.2,
+     "server_onnx_data": [
+      {
+       "status": 200,
+       "mb": 96.01
+      }
+     ],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 96.015,
+      "mlm_weights_graph": 22.041
+     }
+    },
+    {
+     "step": "B_warm_reload",
+     "profile": "mbit20",
+     "expected_model": "b",
+     "model_loaded": "b",
+     "title": "Lost in Space · masked-word model",
+     "settled": true,
+     "chain_done_s": 4.5,
+     "model_ready_first_pair_starts_s": 1.35,
+     "first_result_chip_s": 1.49,
+     "bytes_until_first_result": {
+      "total_mb": 0.002,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 0.001,
+        "requests": 7,
+        "from_cache": 5
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 0.002,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 0.001,
+        "requests": 7,
+        "from_cache": 5
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "renderer_rss_mb": 1661,
+     "renderer_pids": [
+      4141747,
+      4141713,
+      4141717,
+      4141704
+     ],
+     "js_heap_used_mb": 310,
+     "js_heap_total_mb": 427,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 0,
+     "server_onnx_data": [],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "B_warm_navigate",
+     "profile": "mbit20",
+     "expected_model": "b",
+     "model_loaded": "b",
+     "title": "Lost in Space · masked-word model",
+     "settled": true,
+     "chain_done_s": 3.7,
+     "model_ready_first_pair_starts_s": 0.95,
+     "first_result_chip_s": 1.08,
+     "bytes_until_first_result": {
+      "total_mb": 0.002,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 19
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 0.001,
+        "requests": 7,
+        "from_cache": 5
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 0.002,
+      "requests": 38,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 19
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "mlm_config": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 0,
+        "requests": 1,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 0.001,
+        "requests": 7,
+        "from_cache": 5
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 3,
+        "from_cache": 3
+       }
+      }
+     },
+     "renderer_rss_mb": 2338,
+     "renderer_pids": [
+      4141747,
+      4141713,
+      4141717,
+      4141704
+     ],
+     "js_heap_used_mb": 462,
+     "js_heap_total_mb": 525,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 0,
+     "server_onnx_data": [],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "switch_B_to_A (A warm)",
+     "profile": "mbit20",
+     "expected_model": "a",
+     "model_loaded": "a",
+     "title": "Lost in Space",
+     "settled": true,
+     "chain_done_s": 3.9,
+     "model_ready_first_pair_starts_s": 1.13,
+     "first_result_chip_s": 1.26,
+     "bytes_until_first_result": {
+      "total_mb": 0,
+      "requests": 33,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 8,
+        "from_cache": 8
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 0,
+      "requests": 33,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0,
+        "requests": 19,
+        "from_cache": 18
+       },
+       "vendor(js+wasm)": {
+        "mb": 0,
+        "requests": 6,
+        "from_cache": 6
+       },
+       "data_default": {
+        "mb": 0,
+        "requests": 8,
+        "from_cache": 8
+       }
+      }
+     },
+     "renderer_rss_mb": 1856,
+     "renderer_pids": [
+      4141747,
+      4141713,
+      4141717,
+      4141704
+     ],
+     "js_heap_used_mb": 459,
+     "js_heap_total_mb": 522,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 0,
+     "server_onnx_data": [],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 0,
+      "mlm_weights_graph": 0
+     }
+    },
+    {
+     "step": "B_cold_direct (fresh profile, ?model=b)",
+     "profile": "mbit20",
+     "expected_model": "b",
+     "model_loaded": "b",
+     "title": "Lost in Space · masked-word model",
+     "settled": true,
+     "chain_done_s": 82.5,
+     "model_ready_first_pair_starts_s": 61.22,
+     "first_result_chip_s": 61.4,
+     "bytes_until_first_result": {
+      "total_mb": 146.239,
+      "requests": 43,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0.085,
+        "requests": 19,
+        "from_cache": 0
+       },
+       "vendor(js+wasm)": {
+        "mb": 22.264,
+        "requests": 6,
+        "from_cache": 0
+       },
+       "mlm_config": {
+        "mb": 0.001,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 22.041,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 96.015,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 2.256,
+        "requests": 7,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 0.042,
+        "requests": 3,
+        "from_cache": 0
+       },
+       "tokenizer_and_config(shared)": {
+        "mb": 3.535,
+        "requests": 2,
+        "from_cache": 0
+       }
+      }
+     },
+     "bytes_until_settled": {
+      "total_mb": 189.118,
+      "requests": 45,
+      "groups": {
+       "app(html/js/css)": {
+        "mb": 0.085,
+        "requests": 19,
+        "from_cache": 0
+       },
+       "vendor(js+wasm)": {
+        "mb": 22.264,
+        "requests": 6,
+        "from_cache": 0
+       },
+       "mlm_config": {
+        "mb": 0.001,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_graph": {
+        "mb": 22.041,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mlm_weights_data": {
+        "mb": 96.015,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "data_mlm": {
+        "mb": 2.256,
+        "requests": 7,
+        "from_cache": 0
+       },
+       "data_default": {
+        "mb": 0.042,
+        "requests": 3,
+        "from_cache": 0
+       },
+       "tokenizer_and_config(shared)": {
+        "mb": 3.535,
+        "requests": 2,
+        "from_cache": 0
+       },
+       "mgrad_mlm": {
+        "mb": 42.879,
+        "requests": 2,
+        "from_cache": 0
+       }
+      }
+     },
+     "renderer_rss_mb": 1128,
+     "renderer_pids": [
+      4145860,
+      4145824,
+      4145828,
+      4145814
+     ],
+     "js_heap_used_mb": 179,
+     "js_heap_total_mb": 190,
+     "ig_ran": true,
+     "grad_error": null,
+     "server_bytes_mb": 189.1,
+     "server_onnx_data": [
+      {
+       "status": 200,
+       "mb": 96.01
+      }
+     ],
+     "weight_groups_with_bytes": {
+      "mmini_weights_data": 0,
+      "mmini_weights_graph": 0,
+      "mlm_weights_data": 96.015,
+      "mlm_weights_graph": 22.041
+     }
+    }
+   ]
+  }
+ },
+ "problems": []
+}

@@ -1,0 +1,152 @@
+{
+ "top_keys_equal": true,
+ "n_equal": true,
+ "points_identical_t_l_c_i_s": true,
+ "langs_topics_equal": true,
+ "heads_keys_equal": {
+  "pca": true,
+  "fc": true,
+  "ae": true
+ },
+ "head_shapes_equal": {
+  "pca": {
+   "mean": true,
+   "W": true
+  },
+  "fc": {
+   "mean": true,
+   "W": true
+  },
+  "ae": {
+   "mean": true,
+   "W": true,
+   "W1": true,
+   "b1": true,
+   "W2": true,
+   "b2": true
+  }
+ },
+ "layer_means_shape": [
+  [
+   13,
+   384
+  ],
+  [
+   13,
+   384
+  ]
+ ],
+ "layer_lens_keys_equal": true,
+ "sim_ref_keys_equal": true,
+ "metrics_spaces_equal": true,
+ "emb_A_bytes": 1542144,
+ "emb_A_ok": true,
+ "emb_B_bytes": 1542144,
+ "emb_B_ok": true,
+ "B_emb_finite": true,
+ "B_emb_norm_min_max": [
+  0.996604687862368,
+  1.0046113355409048
+ ],
+ "B_emb_zero_rows": 0,
+ "B_head_pca_finite": true,
+ "B_head_fc_finite": true,
+ "B_head_ae_finite": true,
+ "B_layer_means_finite": true,
+ "B_layer_lens_vs_sibling_mminilm_max_abs_diff": {
+  "translation_cos": 1.1920928955078125e-07,
+  "random_cos": 1.7881393432617188e-07,
+  "language_probe_acc": 0
+ },
+ "A_layer_lens_vs_sibling_shipped_max_abs_diff": {
+  "translation_cos": 1.1920928955078125e-07,
+  "random_cos": 5.960464477539063e-08,
+  "language_probe_acc": 0
+ },
+ "B_layer12": {
+  "layer": 12,
+  "translation_cos": 0.9427420496940613,
+  "random_cos": 0.8918454647064209,
+  "language_probe_acc": 1.0
+ },
+ "A_layer12": {
+  "layer": 12,
+  "translation_cos": 0.8364435434341431,
+  "random_cos": 0.05526197329163551,
+  "language_probe_acc": 0.39950980392156865
+ },
+ "B_sim_ref": {
+  "translation": [
+   0.9135,
+   0.9321,
+   0.9431,
+   0.9542,
+   0.9709
+  ],
+  "unrelated": [
+   0.842,
+   0.8768,
+   0.8955,
+   0.911,
+   0.9295
+  ],
+  "quantiles": [
+   5,
+   25,
+   50,
+   75,
+   95
+  ]
+ },
+ "A_sim_ref": {
+  "translation": [
+   0.6307,
+   0.791,
+   0.8636,
+   0.9083,
+   0.9478
+  ],
+  "unrelated": [
+   -0.102,
+   -0.0218,
+   0.041,
+   0.1171,
+   0.2603
+  ],
+  "quantiles": [
+   5,
+   25,
+   50,
+   75,
+   95
+  ]
+ },
+ "B_overlap_rule_translation5_le_unrelated95": true,
+ "B_model_field": "microsoft/Multilingual-MiniLM-L12-H384",
+ "tier1_P2_27d": {
+  "order": {
+   "key_order_and_types_match_A": true,
+   "diffs": [],
+   "all_finite": true,
+   "probes_shape_equals_A": true
+  },
+  "tsne": {
+   "key_order_and_types_match_A": true,
+   "diffs": [],
+   "all_finite": true,
+   "n_coords": 12048,
+   "n_points_x3": 12048,
+   "coords_len_equals_A": true,
+   "coords_dim_note": "A: 12048 values"
+  },
+  "grad": {
+   "manual_vs_autograd_grad_rel": 3.601554635679349e-05,
+   "onnx_fp16_vs_autograd_grad_rel": 1.4579771232092753e-05,
+   "limit_onnx": 0.02,
+   "pass": true,
+   "size_bytes": 42878593
+  },
+  "A_files_unchanged_md5_and_mtime": true,
+  "A_files_checked": 9
+ }
+}

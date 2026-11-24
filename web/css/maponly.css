@@ -1,0 +1,19 @@
+/* maponly.css, "map only" presentation.
+   With class "map-only" on <html> (set by js/maponly.js from ?maponly=1 or the "Map only" button) the 3-D map fills the
+   whole window: header, sentence boxes, explanation panel, cards and footer are hidden, and so are the Color / Map / Show filter rows,
+   the word-point and reset buttons and the layer controls. The topic legend and the language-shape legend stay (class mo-nolegend
+   hides them). A small bar at the top right (invisible until hovered or focused) brings the controls back. */
+
+html.map-only, html.map-only body { height: 100%; overflow: hidden; }
+html.map-only .top, html.map-only .composer, html.map-only .why, html.map-only .cards, html.map-only footer { display: none; }
+html.map-only .stage { position: fixed; inset: 0; display: block; padding: 0; }
+html.map-only .viewer { position: absolute; inset: 0; min-height: 0; border: 0; border-radius: 0; }
+html.map-only .overlay.tl, html.map-only .overlay.tr, html.map-only .overlay.br, html.map-only .honesty, html.map-only #lang-toggles .seg-label { display: none; }
+html.map-only .overlay.bl { left: 16px; bottom: 16px; right: 16px; max-width: none; }
+html.map-only.mo-nolegend .overlay.bl { display: none; }
+
+.mo-bar { position: absolute; top: 12px; right: 12px; z-index: 4; display: none; gap: 8px; opacity: 0; transition: opacity .15s; }
+html.map-only .mo-bar { display: flex; }
+.mo-bar:hover, .mo-bar:focus-within { opacity: 1; }
+.mo-bar .chip-btn { background: var(--glass); backdrop-filter: blur(6px); }
+.mo-bar .chip-btn[aria-pressed="false"] { opacity: .6; }

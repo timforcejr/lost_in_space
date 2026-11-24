@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  about.html: limits, references and credits on their own page.
+  Holds the long text kept off the main page: limits, related work, references, credits and AI use, responsible use,
+  how to read the cards. Static page: same stylesheet and theme switch as index.html, relative links only, so it works
+  from a file, a local server and GitHub Pages. js/about.js fills in the reference list and the per-language sentence.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Limits, references and credits · Lost in Space</title>
+  <meta name="description" content="Limits, related work, references, credits and AI use for Lost in Space, a browser explainer for multilingual sentence embeddings.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1a19'/%3E%3Ccircle cx='10' cy='12' r='5' fill='%23ff8fbd'/%3E%3Ccircle cx='22' cy='20' r='5' fill='%23a99bff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
+</head>
+<body class="about">
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="9" cy="11" r="4" fill="var(--a)"/><circle cx="23" cy="20" r="4" fill="var(--b)"/><path d="M12 13 20 18" stroke="var(--text-2)" stroke-width="1.5" stroke-dasharray="2 2"/><circle cx="22" cy="7" r="1.6" fill="var(--muted)"/><circle cx="7" cy="24" r="1.6" fill="var(--muted)"/><circle cx="15" cy="26" r="1.2" fill="var(--muted)"/></svg>
+    <div><h1>Limits, references and credits</h1><p>Lost in Space · the details behind the page</p></div>
+  </div>
+  <a id="btn-back" class="chip-btn" href="index.html">← Back to the page</a>
+</header>
+
+<main class="about-main">
+  <nav class="about-nav" aria-label="On this page"><a href="#cards">How to read the cards</a> · <a href="#responsible">Using this responsibly</a> · <a href="#models">Models</a> · <a href="#limits">Limits</a> · <a href="#related">Related work</a> · <a href="#references">References</a> · <a href="#credits">Credits and AI use</a></nav>
+
+  <section id="cards">
+    <h2>How to read the cards</h2>
+    <ul class="plain">
+      <li><b>What lights up nearby</b> Nearest reference sentences in the full 384-dimension space (not the 3D picture). Click one to load it as sentence B.</li>
+      <li><b>Can we trust the explanation?</b> Deletion test on sentence A: remove words in the order each method ranks them and re-run the model. A faithful ranking makes the similarity fall fastest. The bars below the curves repeat the test offline on 612 translation pairs (1,224 explanations), and by language.</li>
+      <li><b>Can we trust the map?</b> Squeezing 384 dimensions into 3 loses most of the fine structure. The table says how much, on 816 held-out sentences; the chart shows at which layer the shared space forms.</li>
+      <li><b>Break the model: does the explanation change?</b> A second check on the explanation methods: swap the model’s layers for random ones and see whether each explanation changes.</li>
+      <li><b>Does word order matter to the model?</b> “The dog bit the man” and “The man bit the dog” score almost the same. This test scrambles the words of sentence A, re-runs the model and follows the sentence vector through the layers.</li>
+    </ul>
+  </section>
+
+  <section id="responsible">
+    <h2>Using this responsibly <span class="sub">What a score is, and what it is not</span></h2>
+    <ul class="plain">
+      <li><b>Who it is for.</b> Built as a visualization and teaching aid, meant to help people see how a model encodes information. For people who build or rely on search, retrieval, duplicate detection or translation matching that runs on sentence embeddings, and students learning how such models work.</li>
+      <li><b>What a score is.</b> How close one model puts two sentences. It is not a ruling that they mean the same, that a translation is correct, or that a statement is true.</li>
+      <li><b>Do not use it to</b> check a medical or legal translation, judge someone’s writing (plagiarism, authorship), or settle whether two claims agree. The “Word order” and “Negation” examples show why.</li>
+      <li><b>How it can mislead.</b> A neat explanation makes a wrong score easier to believe <span class="cite">[66, 67]</span>. Every explanation here sits next to a test of itself: read the test before the picture.</li>
+      <li><b>Dual use.</b> The word-order test shows that re-ordered or scrambled text keeps a high score. That is a weakness of similarity-based duplicate and plagiarism filters, and anyone running one should know it; it is also a hint for getting past one.</li>
+      <li><b>Who is affected.</b> <span id="fair-note">The model is not equally good in every language, and neither are its explanations.</span> People whose language is served worse may get worse search results and less reliable explanations.</li>
+      <li><b>Privacy.</b> Your sentences are processed in this browser tab and are never sent anywhere. They are put in the page address (after the #) so that a link reproduces the result, which means they appear in your browser history and in any link you copy. The language switches are remembered in this browser. The web host sees ordinary file requests, never your text.</li>
+      <li><b>Where the evidence stops.</b> The reference sentences are news-style text in four languages (SIB-200). Nothing here was tested on chat, dialect, mixed-language text or other languages, and no user study has been run yet.</li>
+    </ul>
+  </section>
+
+  <section id="models">
+    <h2>Models <span class="sub">What the header dropdown switches</span></h2>
+    <p class="prose">The “Model:” dropdown in the header loads one of two models of the same size and structure (12 layers, 384 dimensions, the same tokenizer). The page reloads with the model you pick, so one model is loaded at a time.</p>
+    <ul class="plain">
+      <li><b>Translation-trained MiniLM (default).</b> <code>paraphrase-multilingual-MiniLM-L12-v2</code>, trained on translations. This is the model on the poster.</li>
+      <li><b>Masked-word MiniLM.</b> <code>microsoft/Multilingual-MiniLM-L12-H384</code> (MIT), trained only to fill in masked words, never on translations.</li>
+      <li><b>What changes when you switch:</b> the similarity score, the explanations, the point cloud, the layer lens, t-SNE and integrated gradients.</li>
+      <li><b>What is measured on the default model only:</b> the offline benchmark (612 translation pairs, 1,224 explanations), the sanity check (layers re-initialized). The map’s trust numbers, the deletion curve for your sentences and the layer lens are computed for the loaded model. Integrated gradients on the masked-word model is computed live but not benchmarked.</li>
+      <li><b>What the layer lens shows at layer 12:</b> a linear probe guesses the language from the embedding 40% of the time on the default model and 100% on the masked-word model (chance is 25%). Translations score 0.78 above unrelated pairs on the default model and 0.05 above on the masked-word model. On the masked-word model the languages stay apart. This is about language identity, not about whether meaning differs across languages. Raw similarity is not the point: every pair scores high on the masked-word model because its vectors point the same way, so compare the two lines, not their height.</li>
+    </ul>
+  </section>
+
+  <section id="limits">
+    <h2>Limits</h2>
+    <ul class="plain">
+      <li>This explains the loaded model’s geometry (by default <code>paraphrase-multilingual-MiniLM-L12-v2</code>, or the masked-word model; see Models above; both are quantized to 8-bit for the browser). It is not a judgment of meaning or of translation quality.</li>
+      <li>The 3D map is a lossy sketch. Neighbors and scores are always computed in 384 dimensions.</li>
+      <li>Deleting a word gives the model an input it rarely saw in training, so deletion scores say how much the model relies on a word in that unusual setting.</li>
+      <li>We also tested masking a word instead of deleting it. The order of the four methods stayed the same and their gaps were smaller (occlusion 0.319 against 0.448 for deletion).</li>
+      <li>The page runs an 8-bit copy of the model. Scores move by at most 0.03 against full precision, but explanations of two almost identical sentences can move more: on one three-word pair the word order of integrated gradients flipped. Integrated gradients starts from a sentence of padding, so a different start would give different numbers.</li>
+      <li>The page uses the first 64 word pieces of a sentence and says so when it cuts one. The offline benchmark allows 128; 19 of its 816 test sentences are longer than 64.</li>
+      <li>The “pair split” reads the last layer, where every word vector already contains context from the whole sentence. The pair split also barely changes when the encoder is re-initialized (0.49 agreement with all 12 layers re-initialized).</li>
+      <li>Attention rollout ignores sentence B entirely; it shows routing, not a reason for the score. It also barely changes when most of the encoder is re-initialized (see “Break the model: does the explanation change?”), so its good deletion score should be read with that in mind.</li>
+      <li>Earlier layers are shown through a map fitted on layer 12 (re-centered per layer); treat that path as a sketch.</li>
+      <li>t-SNE has no formula for a new sentence. On that map a typed sentence (and each of its words) is drawn at the center of its 8 nearest reference sentences, and only nearby points mean anything: gaps and distances between far-apart groups do not.</li>
+      <li>Switching a language off hides its points and leaves it out of the neighbor lists. It does not change the model or any score.</li>
+      <li>One main model: every benchmark, the sanity check and the poster numbers are for the default model. The masked-word model in the header dropdown is a contrast for the layer lens and the map.</li>
+      <li>The Hindi and Chinese example sentences were written with AI help and have not been checked by a native speaker.</li>
+    </ul>
+  </section>
+
+  <section id="related">
+    <h2>Related work</h2>
+    <p class="prose">Sentence-embedding models (Sentence-BERT <span class="cite">[1]</span>, made multilingual by distillation <span class="cite">[2]</span>; this page uses a MiniLM <span class="cite">[3]</span> student) score two texts by the cosine of their pooled vectors. Explaining that score is an active area: BiLRP <span class="cite">[15, 16]</span> and integrated Jacobians <span class="cite">[17, 18]</span> attribute it to token pairs, and a 2025 survey <span class="cite">[20]</span> and a 2026 Python toolkit <span class="cite">[21]</span> collect the methods; the toolkit tests this page’s model against human word alignments in ten language pairs. The exact “pair split” shown here is the identity written out by Lee et al. <span class="cite">[14]</span>, who also argue it is a weak explanation. Occlusion <span class="cite">[10]</span>, integrated gradients <span class="cite">[11]</span> and attention rollout <span class="cite">[13]</span> are standard methods; whether attention explains anything is disputed <span class="cite">[30, 31]</span>.</p>
+    <p class="prose">We grade explanations by removing words in ranked order <span class="cite">[25, 28, 29]</span>, repeat the test with a second removal operation because removal itself changes the input <span class="cite">[26]</span>, and run the model-randomization sanity check <span class="cite">[27]</span>. Faithfulness across languages has been measured for classifiers <span class="cite">[32, 33]</span>; for similarity models we found a perturbation test on English only <span class="cite">[16]</span>, and nothing for Hindi. The layer-by-layer view follows work on where multilingual models align languages <span class="cite">[34–36]</span> and on probing <span class="cite">[38–40]</span>; the word-order test follows PAWS <span class="cite">[6, 7]</span> and studies showing that language and vision-language models often ignore order <span class="cite">[42–44]</span>. The map follows the Embedding Projector <span class="cite">[49]</span>, with fidelity measured by trustworthiness <span class="cite">[47]</span> and the usual cautions about t-SNE <span class="cite">[45, 46]</span>. We are not aware of another tool that attributes a sentence-similarity score entirely in the browser; the closest in-browser precedent teaches how GPT-2 works <span class="cite">[53]</span>. The NLP project, an earlier group class project with Ananya Singh and Cherry Lian, found with a different model (LaBSE) that cosine similarity does not detect real translation errors (best AUC 0.66; unpublished class report), which is one reason this page refuses to call a score “translation quality”.</p>
+  </section>
+
+  <section id="references">
+    <h2>References</h2>
+    <p>The references below are the full list (also kept as REFERENCES.md in the repository).</p>
+    <ol id="refs" class="refs"><li>Loading…</li></ol>
+  </section>
+
+  <section id="credits">
+    <h2>Credits and AI use</h2>
+    <ul class="plain">
+      <li>By Tim Force. Lost in Space builds on the NLP project, a group class project with Ananya Singh and Cherry Lian that asked whether you can visualize how a model understands the feeling of text across languages.</li>
+      <li>New here:
+        <ul>
+          <li>Runs in your browser; nothing leaves your device.</li>
+          <li>XAI tools: attribution, maps, layer lens, faithfulness and sanity tests.</li>
+          <li>Visualization to build understanding of how an AI learns meaning.</li>
+        </ul>
+      </li>
+      <li>Model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 (Apache-2.0) <span class="cite">[1–3]</span>. Masked-word model, selectable in the header: microsoft/Multilingual-MiniLM-L12-H384 (MIT; masked words only; 8-bit ONNX, tokenizer shared with the default model) <span class="cite">[3, 73]</span>.</li>
+      <li>Reference sentences: SIB-200 <span class="cite">[4]</span> (CC BY-SA 4.0), built on FLORES-200 <span class="cite">[5]</span>. Word-order benchmark: PAWS-X <span class="cite">[7]</span>, offline only.</li>
+      <li>Runtime: transformers.js and onnxruntime-web (Apache-2.0 / MIT); three.js (MIT). No text leaves your browser.</li>
+      <li>AI use: Claude Code (Anthropic) wrote most of the code, scripts, text and the poster, using the models Claude Fable 5.2, Claude Opus 5.5 and Claude Sonnet 5.5 as planner, coder, runner, researcher, author and reviewer, from 15 to 23 November 2026. Tim directed the work, chose the scope and name, edited the poster and credits wording, and approved each publication.
+        <ul>
+          <li>Tim has not read every line of code. What backs it: the tests in the repository (headless Chrome, parity against Python) and the evaluation files they check.</li>
+          <li>The numbers on this page come from those evaluation files and are reproduced by the repository's tests.</li>
+          <li>The Hindi and Chinese example sentences were written with AI help and have not been checked by a native speaker.</li>
+          <li>This matches the poster footer: “AI usage: Claude helped with development, research, and presentation. See Credits on the page.”</li>
+          <li>The record of tools, models, roles, dates and checks is the file AI_USAGE.md in the project repository.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p><a href="index.html">← Back to the page</a> · Duke University · Explainable AI · Final project</p>
+</footer>
+
+<script type="module" src="js/about.js"></script>
+</body>
+</html>

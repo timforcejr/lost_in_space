@@ -1,0 +1,10 @@
+{
+  "name": "lost-in-space-poster",
+  "private": true,
+  "description": "Builds the Lost in Space poster (.pptx) from the logged results and fresh screenshots of the app.",
+  "dependencies": {
+    "pptxgenjs": "^3.12.0",
+    "puppeteer-core": "^24.0.0",
+    "qrcode": "^1.5.4"
+  }
+}

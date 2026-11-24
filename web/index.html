@@ -1,0 +1,156 @@
+<!doctype html>
+<!--
+  Lost in Space: page shell for an in-browser multilingual sentence-embedding explainer.
+  Verification: tests/smoke.mjs (headless Chrome). Footer links go to about.html (limits, references, credits and AI use).
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lost in Space</title>
+  <meta name="description" content="Type two sentences in English, Spanish, Hindi or Chinese. See where a multilingual transformer puts them, which words drove the similarity score, and whether that explanation can be trusted. Runs in your browser.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1a19'/%3E%3Ccircle cx='10' cy='12' r='5' fill='%23ff8fbd'/%3E%3Ccircle cx='22' cy='20' r='5' fill='%23a99bff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/popout.css">
+  <link rel="stylesheet" href="css/maponly.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="9" cy="11" r="4" fill="var(--a)"/><circle cx="23" cy="20" r="4" fill="var(--b)"/><path d="M12 13 20 18" stroke="var(--text-2)" stroke-width="1.5" stroke-dasharray="2 2"/><circle cx="22" cy="7" r="1.6" fill="var(--muted)"/><circle cx="7" cy="24" r="1.6" fill="var(--muted)"/><circle cx="15" cy="26" r="1.2" fill="var(--muted)"/></svg>
+    <div><h1>Lost in Space</h1><p>Two sentences, four languages, one shared space. Where does a transformer put them, and should you believe it?</p>
+      <div class="model-pick" id="model-box"><label for="model-pick">Model:</label> <select id="model-pick" aria-describedby="model-desc"><option value="a">Translation-trained MiniLM (default)</option></select> <span id="model-desc" class="model-desc">trained on translations; this is the model on the poster.</span></div></div>
+  </div>
+  <span id="popout-note" class="popout-note" hidden>3D map is in another window</span>
+  <button id="btn-popout" class="chip-btn popout-btn" type="button">Pop out</button>
+  <button id="btn-reset-layout" class="chip-btn" type="button" title="Put the blocks back in their original columns and order, and expand any collapsed block" hidden>Reset layout</button>
+  <div id="status" class="status" role="status"><span class="dot"></span><span id="status-text">Loading…</span></div>
+</header>
+
+<section class="composer" aria-label="Sentences">
+  <form id="form">
+    <label class="field a"><span class="tag">A</span><input id="in-a" type="text" aria-label="Sentence A" dir="auto" autocomplete="off" spellcheck="false" maxlength="240" placeholder="First sentence (English, Español, हिन्दी, 中文)"></label>
+    <label class="field b"><span class="tag">B</span><input id="in-b" type="text" aria-label="Sentence B" dir="auto" autocomplete="off" spellcheck="false" maxlength="240" placeholder="Second sentence"></label>
+    <button id="go" type="submit" disabled>Map them</button>
+  </form>
+  <div class="examples"><span>Try:</span><span id="examples"></span></div>
+</section>
+
+<main class="stage blocks" id="blocks">
+<div class="blk" data-blk="map" data-title="3D map">
+  <section class="viewer" id="viewer" aria-label="3D map of sentence embeddings">
+    <div class="labels"></div>
+    <div class="overlay tl">
+      <div class="seg" id="seg-color" role="group" aria-label="Color points by"><span class="seg-label">Color</span><button data-v="lang">Language</button><button data-v="topic" class="on">Topic</button></div>
+      <div class="seg" id="seg-head" role="group" aria-label="Projection to 3D"><span class="seg-label" tabindex="0" data-tip="The map shows 4,016 reference sentences: the same 1,004 sentences in each of four languages. Your two sentences are placed among them.">Map</span><button data-v="pca">PCA</button><button data-v="fc">Linear</button><button data-v="ae" class="on">Autoencoder</button><button data-v="tsne" title="Precomputed t-SNE of the reference sentences">t-SNE</button></div>
+    </div>
+    <div class="overlay tr"><button id="btn-words" class="chip-btn on">Word points</button><button id="btn-reset" class="chip-btn">Reset view</button></div>
+    <div class="overlay bl"><div id="lang-toggles" class="legend3d" role="group" aria-label="Languages shown on the map"></div><div id="legend3d" class="legend3d"></div><p class="honesty" id="honesty"></p></div>
+    <div class="overlay br layerbox">
+      <div class="layer-head"><button id="btn-play" class="chip-btn" title="Play layers 0 to 12">▶ Play layers</button><span id="layer-label" tabindex="0" data-tip="Layer 0 is the word-embedding table (no context). Each layer mixes in more of the sentence.">Layer 12 · final</span></div>
+      <div class="layer-step"><button id="layer-prev" class="chip-btn" type="button" aria-label="Previous layer" title="Previous layer">&#9664;</button><input id="layer" type="range" min="0" max="12" step="1" value="12" aria-label="Transformer layer"><button id="layer-next" class="chip-btn" type="button" aria-label="Next layer" title="Next layer" disabled>&#9654;</button></div>
+    </div>
+    <div id="tip3d" class="tip3d" hidden></div>
+    <div id="nogl" class="nogl" hidden>3D view needs WebGL. Everything below still works.</div>
+  </section>
+</div>
+<div class="col" data-col="0">
+<div class="blk cards" data-blk="near" data-title="What lights up nearby">
+<article class="card">
+  <h2>What lights up nearby</h2>
+  <p class="note" id="neigh-note">Nearest reference sentences in 384 dimensions. Click one to load it as sentence B.</p>
+  <div id="neighbors" class="neigh"><p class="empty-small">Submit two sentences to see their neighbors.</p></div>
+</article>
+</div>
+<div class="blk cards" data-blk="order" data-title="Does word order matter to the model?">
+<article class="card">
+  <h2>Does word order matter to the model?</h2>
+  <p class="note">Scramble the words of sentence A and follow its vector through the layers.</p>
+  <p class="summary" id="order-live">Runs after you submit.</p>
+  <button id="btn-scramble" class="chip-btn" type="button" hidden>Scramble again</button>
+  <div id="order-chart"></div>
+  <div id="order-summary" class="summary"></div>
+  <p class="note" id="order-note"></p>
+</article>
+</div>
+</div>
+<div class="col" data-col="1">
+<div class="blk" data-blk="why" data-title="Explanation">
+  <aside class="why" aria-label="Explanation">
+    <div id="why-empty" class="empty">Loading the model…</div>
+    <div id="why-body" hidden>
+      <div class="hero">
+        <div class="hero-num"><span id="sim">–</span><span class="hero-unit">cosine similarity</span></div>
+        <p id="sim-text" class="hero-text"></p>
+      </div>
+      <div id="sim-strip" class="strip"></div>
+
+      <h2>Which words made it say so?</h2>
+      <div class="tabs" id="tabs" role="tablist">
+        <button role="tab" data-m="occlusion" class="on">Occlusion</button>
+        <button role="tab" data-m="pair">Pair split</button>
+        <button role="tab" data-m="ig" title="Integrated gradients">Int. gradients</button>
+        <button role="tab" data-m="rollout">Attention</button>
+      </div>
+      <p id="method-note" class="note"></p>
+      <p id="method-pending" class="empty-small" hidden></p>
+      <div class="sent-row"><span class="tag a">A</span><div id="chips-a" class="chips"></div></div>
+      <div class="sent-row"><span class="tag b">B</span><div id="chips-b" class="chips"></div></div>
+      <div class="scale" id="scale"></div>
+
+      <div class="matrix-head"><h2>Which word pairs carry the score?</h2>
+        <div class="seg small" id="seg-matrix" role="group" aria-label="Matrix view"><button data-v="specific" class="on">Who pairs with whom</button><button data-v="raw">Raw shares</button></div></div>
+      <p class="note" id="matrix-note"></p>
+      <div id="matrix" class="matrix"></div>
+    </div>
+  </aside>
+</div>
+<div class="blk cards" data-blk="trustx" data-title="Can we trust the explanation?">
+<article class="card">
+  <h2>Can we trust the explanation?</h2>
+  <p class="note">Remove words in each method’s order; a faithful ranking makes the score fall fastest.</p>
+  <div id="del-chart"><p class="empty-small">Runs after you submit.</p></div>
+  <div id="del-summary" class="summary"></div>
+  <h3>Across 612 translation pairs <span class="sub">(offline benchmark, 1,224 explanations)</span></h3>
+  <div class="seg small" id="seg-bench" role="group" aria-label="Explained language"><button data-v="all" class="on">All</button><button data-v="en">English</button><button data-v="es">Spanish</button><button data-v="hi">Hindi</button><button data-v="zh">Chinese</button></div>
+  <div id="bench-chart"></div>
+  <p class="note" id="bench-note"></p>
+</article>
+</div>
+<div class="blk cards" data-blk="trustm" data-title="Can we trust the map?">
+<article class="card">
+  <h2>Can we trust the map?</h2>
+  <p class="note">Squeezing 384 dimensions into 3 loses detail; these numbers say how much.</p>
+  <div id="map-table"></div>
+  <h3>Where the shared space forms <span class="sub">(layer by layer)</span></h3>
+  <div id="lens-chart"></div>
+  <p class="note" id="lens-note"></p>
+</article>
+</div>
+<div class="blk cards" data-blk="evid" data-title="Break the model: does the explanation change?">
+<article class="card">
+  <h2>Break the model: does the explanation change?</h2>
+  <p class="note">This check asks whether each explanation actually depends on what the model learned.</p>
+  <p class="takeaway" id="evid-takeaway"></p>
+  <h3>Swap the model’s layers for random ones <span class="sub">(sanity check)</span></h3>
+  <div id="sanity-chart"><p class="empty-small">Not built yet (run build/eval_sanity.py).</p></div>
+  <p class="note" id="sanity-note"></p>
+</article>
+</div>
+</div>
+</main>
+
+<footer>
+  <p class="foot-note">A similarity score shows how close the model puts two sentences, not that they mean the same. <a href="about.html#responsible">Using this responsibly</a></p>
+  <p><a href="about.html#limits">Limits</a> · <a href="about.html#references">References</a> · <a href="about.html#credits">Credits and AI use</a></p>
+  <p>Duke University · Explainable AI · Final project</p>
+</footer>
+
+<script src="js/help.js" defer></script>
+<script src="js/popout.js" defer></script>
+<script src="js/layout.js" defer></script>
+<script src="js/maponly.js" defer></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
